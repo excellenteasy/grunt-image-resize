@@ -1,6 +1,6 @@
 # grunt-image-resize
 
-> Resizing images like a boss.
+> Resizing images made easy - thanks to imagemagick.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -26,7 +26,9 @@ In your project's Gruntfile, add a section named `image_resize` to the data obje
 grunt.initConfig({
   image_resize: {
     options: {
-      // Task-specific options go here.
+      width: 100,
+      height: 100,
+      overwrite: true
     },
     your_target: {
       // Target-specific file lists and/or options go here.
@@ -37,48 +39,54 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.width
+Type: `Number`
+Default value: `0` (only if height is defined)
 
-A string value that is used to do something with whatever.
+A number value that is passed as pixel value to imagemagick.
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### options.height
+Type: `Number`
+Default value: `0` (only if width is defined)
 
-A string value that is used to do something else with whatever else.
+A number value that is passed as pixel value to imagemagick.
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, the default options are used to resize an image to 100px width. So if the `test/fixtures/wikipedia.png` file has a width of 500px, the generated result would be a 100px wide `tmp/wikipedia.png`.
 
 ```js
 grunt.initConfig({
   image_resize: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    resize: {
+      options: {
+        width: 100
+      },
+      files: {
+        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
+      }
+    }
+  }
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Prevent overwriting
+In this example, we prevent the destination file from being overwritten if it already exists. It the file `tmp/wikipedia.png` already exists, for example because we just ran the task configuration above, this would **not** overwrite `tmp/wikipedia.png`. The file `tmp/wikipedia.png` would still be 100px wide.
 
 ```js
 grunt.initConfig({
   image_resize: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    no_overwrite: {
+      options: {
+        width: 50
+        overwrite: false
+      },
+      files: {
+        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
+      }
+    }
+  }
 })
 ```
 
@@ -86,4 +94,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+Initial release

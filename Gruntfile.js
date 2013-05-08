@@ -16,41 +16,45 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
+        jshintrc: '.jshintrc'
       },
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['tmp/*']
     },
 
     // Configuration to be run (and then tested).
     image_resize: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+      options: {
+        width: 100
       },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!',
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
+      resize: {
+        files: [
+          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
+          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+        ]
       },
+      no_overwrite: {
+        options: {
+          width: 0,
+          height: 50,
+          overwrite: false
+        },
+        files: [
+          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
+          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+        ]
+      }
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
+      tests: ['test/*_test.js']
     },
 
   });
@@ -65,7 +69,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'image_resize', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'image_resize:resize', 'image_resize:no_overwrite', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
