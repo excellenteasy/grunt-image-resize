@@ -2,7 +2,7 @@
   "name": "grunt-image-resize",
   "description": "Resizing images made easy.",
   "version": "0.1.1",
-  "homepage": "https://github.com/excellenteasy.com/grunt-image-resize",
+  "homepage": "https://github.com/excellenteasy/grunt-image-resize",
   "author": {
     "name": "David Pfahler",
     "email": "david@excellenteasy.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/excellenteasy.com/grunt-image-resize"
+    "url": "git://github.com/excellenteasy/grunt-image-resize"
   },
   "bugs": {
-    "url": "https://github.com/excellenteasy.com/grunt-image-resize/issues"
+    "url": "https://github.com/excellenteasy/grunt-image-resize/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/excellenteasy.com/grunt-image-resize/blob/master/LICENSE-MIT"
+      "url": "https://github.com/excellenteasy/grunt-image-resize/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
