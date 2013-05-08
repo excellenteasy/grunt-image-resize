@@ -28,7 +28,7 @@ exports.image_resize = {
     done();
   },
   resize: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     var actual = grunt.file.read('tmp/gnu.jpg');
     var expected = grunt.file.read('test/expected/gnu.jpg');
@@ -41,11 +41,15 @@ exports.image_resize = {
     actual = grunt.file.read('tmp/Rhododendron.jpg');
     expected = grunt.file.read('test/expected/Rhododendron.jpg');
     test.equal(actual, expected, 'Rhododendron.jpg should be the same file');
+
+    actual = grunt.file.read('tmp/TeslaTurbine.png');
+    expected = grunt.file.read('test/expected/TeslaTurbine.png');
+    test.equal(actual, expected, 'TeslaTurbine.png should be the same file');
 
     test.done();
   },
   no_overwrite: function(test) {
-    test.expect(3);
+    test.expect(4);
 
     var actual = grunt.file.read('tmp/gnu.jpg');
     var expected = grunt.file.read('test/expected/gnu.jpg');
@@ -58,6 +62,10 @@ exports.image_resize = {
     actual = grunt.file.read('tmp/Rhododendron.jpg');
     expected = grunt.file.read('test/expected/Rhododendron.jpg');
     test.equal(actual, expected, 'Rhododendron.jpg should be the same file');
+
+    actual = grunt.file.read('tmp/TeslaTurbine.png');
+    expected = grunt.file.read('test/expected/TeslaTurbine.png');
+    test.equal(actual, expected, 'TeslaTurbine.png should be the same file');
 
     test.done();
   }

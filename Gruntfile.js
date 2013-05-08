@@ -37,7 +37,8 @@ module.exports = function(grunt) {
         files: [
           {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
           {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
-          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'}
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'},
+          {'tmp/TeslaTurbine.png': 'test/fixtures/TeslaTurbine.png'}
         ]
       },
       no_overwrite: {
@@ -49,7 +50,8 @@ module.exports = function(grunt) {
         files: [
           {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
           {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
-          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'}
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'},
+          {'tmp/TeslaTurbine.png': 'test/fixtures/TeslaTurbine.png'}
         ]
       }
     },
