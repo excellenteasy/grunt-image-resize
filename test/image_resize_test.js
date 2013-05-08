@@ -32,11 +32,11 @@ exports.image_resize = {
 
     var actual = grunt.file.read('tmp/gnu.jpg');
     var expected = grunt.file.read('test/expected/gnu.jpg');
-    test.equal(actual, expected, 'should be the same file');
+    test.equal(actual, expected, 'gnu.jpg should be the same file');
 
     actual = grunt.file.read('tmp/wikipedia.png');
     expected = grunt.file.read('test/expected/wikipedia.png');
-    test.equal(actual, expected, 'should be the same file');
+    test.equal(actual, expected, 'wikipedia.png should be the same file');
 
     test.done();
   },
@@ -45,11 +45,11 @@ exports.image_resize = {
 
     var actual = grunt.file.read('tmp/gnu.jpg');
     var expected = grunt.file.read('test/expected/gnu.jpg');
-    test.equal(actual, expected, 'should be the same file');
+    test.equal(actual, expected, 'gnu.jpg should be the same file');
 
     actual = grunt.file.read('tmp/wikipedia.png');
     expected = grunt.file.read('test/expected/wikipedia.png');
-    test.equal(actual, expected, 'should be the same file');
+    test.equal(actual, expected, 'wikipedia.png should be the same file');
 
     test.done();
   }
