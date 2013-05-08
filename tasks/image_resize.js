@@ -74,7 +74,7 @@ module.exports = function(grunt) {
       });
     });
 
-    async.parallel(queue, function() {
+    async.series(queue, function() {
       done();
     });
   });
