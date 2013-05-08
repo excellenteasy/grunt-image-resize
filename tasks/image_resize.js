@@ -9,7 +9,8 @@
 'use strict';
 
 var imagemagick = require('node-imagemagick'),
-    async       = require('async');
+    async       = require('async'),
+    path        = require('path');
 
 module.exports = function(grunt) {
 
@@ -41,8 +42,13 @@ module.exports = function(grunt) {
         dstPath:  f.dest,
         width:    options.width,
         height:   options.height
-      };
+      },
+        dirname = path.dirname(f.dest);
 
+      // Prevent failing if destination directory does not exist.
+      if (!grunt.file.isDir(dirname)) {
+        grunt.file.mkdir(dirname);
+      }
       // Fail for more than one source file per file group.
       if (f.src.length !== 1) {
         return grunt.fail.fatal("Can not optimize more than one image per destination.\n"+
