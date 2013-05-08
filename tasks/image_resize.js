@@ -26,7 +26,7 @@ module.exports = function(grunt) {
         queue = [];
 
     if (options.height == null && options.width == null) {
-      return grunt.fail.warn("Neither height now width defined.");
+      return grunt.fail.warn("Neither height nor width defined.");
     }
     if (options.height == null && options.width) {
       options.height = 0;
