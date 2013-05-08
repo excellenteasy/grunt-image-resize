@@ -35,8 +35,9 @@ module.exports = function(grunt) {
       },
       resize: {
         files: [
-          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
-          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+          {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
+          {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'}
         ]
       },
       no_overwrite: {
@@ -46,8 +47,9 @@ module.exports = function(grunt) {
           overwrite: false
         },
         files: [
-          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
-          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+          {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
+          {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'}
         ]
       }
     },
