@@ -51,6 +51,18 @@ Default value: `0` (only if width is defined)
 
 A number value that is passed as pixel value to imagemagick.
 
+#### options.overwrite
+Type: `Boolean`
+Default value: `true`
+
+Determines whether file that already exist under this destination will be overwritten.
+
+#### options.upscale
+Type: `Boolean`
+Default value: `false`
+
+Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
+
 ### Usage Examples
 
 #### Default Options
@@ -79,8 +91,27 @@ grunt.initConfig({
   image_resize: {
     no_overwrite: {
       options: {
-        width: 50
+        width: 50,
         overwrite: false
+      },
+      files: {
+        'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'
+      }
+    }
+  }
+})
+```
+
+#### Allow upscaling
+By default, the task does not resize images which would be upscaled. It only allows downscaling. You can allow upscaling by setting the `upscale` option to `true`. Otherwise images will copied instead of resized when they would be upscaled by resizing.
+
+```js
+grunt.initConfig({
+  image_resize: {
+    no_overwrite: {
+      options: {
+        width: 600,
+        upscale: true
       },
       files: {
         'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'

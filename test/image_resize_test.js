@@ -50,5 +50,27 @@ exports.image_resize = {
       createTest('TeslaTurbine.png'),
     ], test.done);
 
+  },
+  upscale: function(test) {
+    test.expect(2);
+
+    async.series([
+      function(callback) {
+        im.identify('tmp/upscale.png', function(err, features) {
+          im.identify('test/expected/upscale.png', function(err, expected) {
+            test.equal(features.width, expected.width);
+            callback();
+          });
+        });
+      },
+      function(callback) {
+        im.identify('tmp/no_upscale.png', function(err, features) {
+          im.identify('test/expected/no_upscale.png', function(err, expected) {
+            test.equal(features.width, expected.width);
+            callback();
+          });
+        });
+      },
+    ], test.done);
   }
 };
