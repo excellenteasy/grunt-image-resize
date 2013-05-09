@@ -8,9 +8,9 @@
 
 'use strict';
 
-var imagemagick = require('node-imagemagick'),
-    async       = require('async'),
-    path        = require('path');
+var imagemagick = require('node-imagemagick');
+var async       = require('async');
+var path        = require('path');
 
 module.exports = function(grunt) {
 
@@ -19,11 +19,13 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('image_resize', 'resize images made easy', function() {
 
-    var done = this.async(),
-        options = this.options({
-          overwrite: true
-        }),
-        queue = [];
+    var done = this.async();
+    var originalOptions = this.options();
+    var options = this.options({
+      overwrite: true,
+      upscale: false
+    });
+    var series = [];
 
     if (options.height == null && options.width == null) {
       return grunt.fail.warn("Neither height nor width defined.");
@@ -62,21 +64,33 @@ module.exports = function(grunt) {
           "Set options 'overwrite' to true to enable overwriting of files.");
       }
 
-      queue.push(function(callback) {
-        imagemagick.resize(imOptions, function(err, stdout, stderr) {
-          if (err) {
-            grunt.fail.warn(err.message);
-          } else {
-            grunt.log.writeln('Image '+filepath+' resized to '+f.dest);
+      series.push(function(callback) {
+        // Fail when image would be upscaled unless explicitly allowed
+        imagemagick.identify(filepath, function(err, features) {
+          if (!options.upscale &&
+            ((originalOptions.width && features.width < originalOptions.width) ||
+            (originalOptions.height && features.height < originalOptions.height))) {
+            grunt.log.writeln("Copying "+filepath+" instead of resizing, because image would be upscaled.\n"+
+              "To allow upscaling, set option 'upscale' to true.");
+            grunt.file.copy(filepath, imOptions.dstPath);
+            grunt.log.ok("Image "+filepath+" copied to "+imOptions.dstPath);
+            callback();
           }
-          return callback();
+          else {
+            imagemagick.resize(imOptions, function(err, stdout, stderr) {
+              if (err) {
+                grunt.fail.warn(err.message);
+              } else {
+                grunt.log.ok('Image '+filepath+' resized to '+f.dest);
+              }
+              return callback();
+            });
+          }
         });
       });
     });
 
-    async.series(queue, function() {
-      done();
-    });
+    async.series(series, done);
   });
 
 };

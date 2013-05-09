@@ -53,6 +53,26 @@ module.exports = function(grunt) {
           {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'},
           {'tmp/TeslaTurbine.png': 'test/fixtures/TeslaTurbine.png'}
         ]
+      },
+      upscale: {
+        options: {
+          width: 600,
+          height: 0,
+          upscale: true
+        },
+        files: [
+          {'tmp/upscale.png': 'test/fixtures/upscale.png'}
+        ]
+      },
+      no_upscale: {
+        options: {
+          width: 600,
+          height: 0,
+          upscale: false
+        },
+        files: [
+          {'tmp/no_upscale.png': 'test/fixtures/no_upscale.png'}
+        ]
       }
     },
 
@@ -73,7 +93,11 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'image_resize:resize', 'nodeunit', 'image_resize:no_overwrite', 'nodeunit']);
+  grunt.registerTask('test', [
+    'clean',
+    'image_resize',
+    'nodeunit'
+  ]);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
