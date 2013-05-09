@@ -35,8 +35,10 @@ module.exports = function(grunt) {
       },
       resize: {
         files: [
-          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
-          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+          {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
+          {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'},
+          {'tmp/TeslaTurbine.png': 'test/fixtures/TeslaTurbine.png'}
         ]
       },
       no_overwrite: {
@@ -46,8 +48,10 @@ module.exports = function(grunt) {
           overwrite: false
         },
         files: [
-          {dest: 'tmp/gnu.jpg', src: 'test/fixtures/gnu.jpg'},
-          {dest: 'tmp/wikipedia.png', src: 'test/fixtures/wikipedia.png'}
+          {'tmp/gnu.jpg': 'test/fixtures/gnu.jpg'},
+          {'tmp/wikipedia.png': 'test/fixtures/wikipedia.png'},
+          {'tmp/Rhododendron.jpg': 'test/fixtures/Rhododendron.jpg'},
+          {'tmp/TeslaTurbine.png': 'test/fixtures/TeslaTurbine.png'}
         ]
       }
     },
@@ -69,7 +73,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'image_resize:resize', 'image_resize:no_overwrite', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'image_resize:resize', 'nodeunit', 'image_resize:no_overwrite', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

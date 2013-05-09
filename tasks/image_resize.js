@@ -37,13 +37,16 @@ module.exports = function(grunt) {
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-      var filepath = f.src[0], imOptions = {
+      var extname = path.extname(f.dest),
+          dirname = path.dirname(f.dest),
+          filepath = f.src[0], imOptions = {
         srcPath:  filepath,
         dstPath:  f.dest,
         width:    options.width,
-        height:   options.height
-      },
-        dirname = path.dirname(f.dest);
+        height:   options.height,
+        format:   extname,
+        quality:  1
+      };
 
       // Prevent failing if destination directory does not exist.
       if (!grunt.file.isDir(dirname)) {
@@ -71,7 +74,7 @@ module.exports = function(grunt) {
       });
     });
 
-    async.parallel(queue, function() {
+    async.series(queue, function() {
       done();
     });
   });

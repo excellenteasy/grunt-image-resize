@@ -1,6 +1,8 @@
 'use strict';
 
-var grunt = require('grunt');
+var grunt = require('grunt'),
+    im    = require('node-imagemagick'),
+    async = require('async');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -28,29 +30,25 @@ exports.image_resize = {
     done();
   },
   resize: function(test) {
-    test.expect(2);
+    test.expect(4);
 
-    var actual = grunt.file.read('tmp/gnu.jpg');
-    var expected = grunt.file.read('test/expected/gnu.jpg');
-    test.equal(actual, expected, 'should be the same file');
+    var createTest = function(filename) {
+      return function(callback) {
+        im.identify('tmp/'+filename, function(err, features) {
+          im.identify('test/expected/'+filename, function(err, expected) {
+            test.equal(features.width, expected.width);
+            callback();
+          });
+        });
+      };
+    };
 
-    actual = grunt.file.read('tmp/wikipedia.png');
-    expected = grunt.file.read('test/expected/wikipedia.png');
-    test.equal(actual, expected, 'should be the same file');
+    async.series([
+      createTest('gnu.jpg'),
+      createTest('Rhododendron.jpg'),
+      createTest('wikipedia.png'),
+      createTest('TeslaTurbine.png'),
+    ], test.done);
 
-    test.done();
-  },
-  no_overwrite: function(test) {
-    test.expect(2);
-
-    var actual = grunt.file.read('tmp/gnu.jpg');
-    var expected = grunt.file.read('test/expected/gnu.jpg');
-    test.equal(actual, expected, 'should be the same file');
-
-    actual = grunt.file.read('tmp/wikipedia.png');
-    expected = grunt.file.read('test/expected/wikipedia.png');
-    test.equal(actual, expected, 'should be the same file');
-
-    test.done();
   }
 };
