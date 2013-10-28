@@ -93,6 +93,7 @@ module.exports = function(grunt) {
         },
         files: [
           {'tmp/crop.png': 'test/fixtures/crop.png'}
+        ]
       },
       quality: {
         options: {
