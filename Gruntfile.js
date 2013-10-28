@@ -64,6 +64,16 @@ module.exports = function(grunt) {
           {'tmp/upscale.png': 'test/fixtures/upscale.png'}
         ]
       },
+      upscale2: {
+        options: {
+          width: 600,
+          height: 600,
+          upscale: true
+        },
+        files: [
+          {'tmp/upscale2.png': 'test/fixtures/upscale2.png'}
+        ]
+      },
       no_upscale: {
         options: {
           width: 600,

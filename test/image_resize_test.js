@@ -1,7 +1,7 @@
 'use strict';
 
 var grunt = require('grunt'),
-    im    = require('node-imagemagick'),
+    gm    = require('gm'),
     async = require('async');
 
 /*
@@ -24,53 +24,41 @@ var grunt = require('grunt'),
     test.ifError(value)
 */
 
+var createTest = function(test, filename) {
+  return function(callback) {
+    gm('tmp/'+filename).size(function(err, features) {
+      gm('test/expected/'+filename).size(function(err, expected) {
+        test.equal(features.width, expected.width);
+        test.equal(features.height, expected.height);
+        callback();
+      });
+    });
+  };
+};
+
 exports.image_resize = {
   setUp: function(done) {
     // setup here if necessary
     done();
   },
   resize: function(test) {
-    test.expect(4);
-
-    var createTest = function(filename) {
-      return function(callback) {
-        im.identify('tmp/'+filename, function(err, features) {
-          im.identify('test/expected/'+filename, function(err, expected) {
-            test.equal(features.width, expected.width);
-            callback();
-          });
-        });
-      };
-    };
+    test.expect(8);
 
     async.series([
-      createTest('gnu.jpg'),
-      createTest('Rhododendron.jpg'),
-      createTest('wikipedia.png'),
-      createTest('TeslaTurbine.png'),
+      createTest(test, 'gnu.jpg'),
+      createTest(test, 'Rhododendron.jpg'),
+      createTest(test, 'wikipedia.png'),
+      createTest(test, 'TeslaTurbine.png'),
     ], test.done);
 
   },
   upscale: function(test) {
-    test.expect(2);
+    test.expect(6);
 
     async.series([
-      function(callback) {
-        im.identify('tmp/upscale.png', function(err, features) {
-          im.identify('test/expected/upscale.png', function(err, expected) {
-            test.equal(features.width, expected.width);
-            callback();
-          });
-        });
-      },
-      function(callback) {
-        im.identify('tmp/no_upscale.png', function(err, features) {
-          im.identify('test/expected/no_upscale.png', function(err, expected) {
-            test.equal(features.width, expected.width);
-            callback();
-          });
-        });
-      },
+      createTest(test, "upscale.png"),
+      createTest(test, "upscale2.png"),
+      createTest(test, "no_upscale.png"),
     ], test.done);
   }
 };
