@@ -25,7 +25,8 @@ module.exports = function(grunt) {
     var options = this.options({
       overwrite: true,
       upscale: false,
-      concurrency: os.cpus().length
+      concurrency: os.cpus().length,
+      crop: false
     });
     var series = [];
 
@@ -77,8 +78,17 @@ module.exports = function(grunt) {
             callback();
           }
           else {
-            gm(filepath)
-              .resize(imOptions.width, imOptions.height)
+            if (options.crop) {
+              var resizer = gm(filepath)
+                .resize(imOptions.width, imOptions.height, "^")
+                .gravity("Center")
+                .crop(imOptions.width, imOptions.height);
+            } else {
+              var resizer = gm(filepath)
+                .resize(imOptions.width, imOptions.height);
+            }
+
+            resizer
               .quality(Math.floor(imOptions.quality * 100))
               .write(imOptions.dstPath, function(err) {
               if (err) {

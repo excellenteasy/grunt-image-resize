@@ -83,6 +83,17 @@ module.exports = function(grunt) {
         files: [
           {'tmp/no_upscale.png': 'test/fixtures/no_upscale.png'}
         ]
+      },
+      crop: {
+        options: {
+          width: 400,
+          height: 300,
+          upscale: false,
+          crop: true
+        },
+        files: [
+          {'tmp/crop.png': 'test/fixtures/crop.png'}
+        ]
       }
     },
 

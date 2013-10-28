@@ -60,5 +60,10 @@ exports.image_resize = {
       createTest(test, "upscale2.png"),
       createTest(test, "no_upscale.png"),
     ], test.done);
+  },
+  crop: function(test) {
+    test.expect(2);
+
+    createTest(test, "crop.png")(test.done);
   }
 };

@@ -63,6 +63,12 @@ Default value: `false`
 
 Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
 
+#### options.crop
+Type: `Boolean`
+Default value: `false`
+
+Determines whether images will be cropped after resizing to exactly match `options.width` and `options.height`.
+
 ### Usage Examples
 
 #### Default Options
