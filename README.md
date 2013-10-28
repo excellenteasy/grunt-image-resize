@@ -69,6 +69,12 @@ Default value: `false`
 
 Determines whether images will be cropped after resizing to exactly match `options.width` and `options.height`.
 
+#### options.concurrency
+Type: `Number`
+Default value: Number of CPUs
+
+Determines how many resize operations are executed in parallel.
+
 ### Usage Examples
 
 #### Default Options
