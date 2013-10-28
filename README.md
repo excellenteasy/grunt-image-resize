@@ -75,6 +75,12 @@ Default value: Number of CPUs
 
 Determines how many resize operations are executed in parallel.
 
+#### options.quality
+Type: `Number`
+Default value: `1`
+
+Determines the output quality of the resized image. Ranges from `0` (really bad) to `1` (almost lossless). Only applies to jpg images.
+
 ### Usage Examples
 
 #### Default Options

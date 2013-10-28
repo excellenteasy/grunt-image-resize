@@ -26,7 +26,8 @@ module.exports = function(grunt) {
       overwrite: true,
       upscale: false,
       concurrency: os.cpus().length,
-      crop: false
+      crop: false,
+      quality: 1
     });
     var series = [];
 
@@ -48,7 +49,7 @@ module.exports = function(grunt) {
         dstPath:  f.dest,
         width:    options.width,
         height:   options.height,
-        quality:  1
+        quality:  options.quality
       };
 
       // Prevent failing if destination directory does not exist.
