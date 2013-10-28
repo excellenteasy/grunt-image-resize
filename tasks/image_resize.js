@@ -8,9 +8,10 @@
 
 'use strict';
 
-var imagemagick = require('node-imagemagick');
-var async       = require('async');
-var path        = require('path');
+var gm    = require('gm').subClass({ imageMagick: true });
+var async = require('async');
+var path  = require('path');
+var os    = require('os');
 
 module.exports = function(grunt) {
 
@@ -23,7 +24,8 @@ module.exports = function(grunt) {
     var originalOptions = this.options();
     var options = this.options({
       overwrite: true,
-      upscale: false
+      upscale: false,
+      concurrency: os.cpus().length
     });
     var series = [];
 
@@ -39,14 +41,12 @@ module.exports = function(grunt) {
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-      var extname = path.extname(f.dest),
-          dirname = path.dirname(f.dest),
+      var dirname = path.dirname(f.dest),
           filepath = f.src[0], imOptions = {
         srcPath:  filepath,
         dstPath:  f.dest,
         width:    options.width,
         height:   options.height,
-        format:   extname,
         quality:  1
       };
 
@@ -66,10 +66,10 @@ module.exports = function(grunt) {
 
       series.push(function(callback) {
         // Fail when image would be upscaled unless explicitly allowed
-        imagemagick.identify(filepath, function(err, features) {
+        gm(filepath).size(function(err, size) {
           if (!options.upscale &&
-            ((originalOptions.width && features.width < originalOptions.width) ||
-            (originalOptions.height && features.height < originalOptions.height))) {
+            ((originalOptions.width && size.width < originalOptions.width) ||
+            (originalOptions.height && size.height < originalOptions.height))) {
             grunt.log.writeln("Copying "+filepath+" instead of resizing, because image would be upscaled.\n"+
               "To allow upscaling, set option 'upscale' to true.");
             grunt.file.copy(filepath, imOptions.dstPath);
@@ -77,7 +77,10 @@ module.exports = function(grunt) {
             callback();
           }
           else {
-            imagemagick.resize(imOptions, function(err, stdout, stderr) {
+            gm(filepath)
+              .resize(imOptions.width, imOptions.height)
+              .quality(Math.floor(imOptions.quality * 100))
+              .write(imOptions.dstPath, function(err) {
               if (err) {
                 grunt.fail.warn(err.message);
               } else {
@@ -90,7 +93,7 @@ module.exports = function(grunt) {
       });
     });
 
-    async.series(series, done);
+    async.parallelLimit(series, options.concurrency, done);
   });
 
 };

@@ -41,7 +41,7 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "node-imagemagick": "~0.1.8",
-    "async": "~0.2.8"
+    "async": "~0.2.8",
+    "gm": "~1.13.3"
   }
 }
