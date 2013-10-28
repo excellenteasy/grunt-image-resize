@@ -1,7 +1,7 @@
 'use strict';
 
 var grunt = require('grunt'),
-    gm    = require('gm'),
+    gm    = require('gm').subClass({ imageMagick: true }),
     async = require('async');
 
 /*

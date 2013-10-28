@@ -8,7 +8,7 @@
 
 'use strict';
 
-var gm    = require('gm');
+var gm    = require('gm').subClass({ imageMagick: true });
 var async = require('async');
 var path  = require('path');
 var os    = require('os');
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
           }
           else {
             gm(filepath)
-              .resize(imOptions.width, imOptions.height, (options.upscale && !(imOptions.width && imOptions.height)) ? "^" : null)
+              .resize(imOptions.width, imOptions.height)
               .quality(Math.floor(imOptions.quality * 100))
               .write(imOptions.dstPath, function(err) {
               if (err) {
