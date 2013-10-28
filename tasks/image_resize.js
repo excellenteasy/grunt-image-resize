@@ -11,6 +11,7 @@
 var imagemagick = require('node-imagemagick');
 var async       = require('async');
 var path        = require('path');
+var os          = require('os');
 
 module.exports = function(grunt) {
 
@@ -23,7 +24,8 @@ module.exports = function(grunt) {
     var originalOptions = this.options();
     var options = this.options({
       overwrite: true,
-      upscale: false
+      upscale: false,
+      concurrency: os.cpus().length
     });
     var series = [];
 
@@ -90,7 +92,7 @@ module.exports = function(grunt) {
       });
     });
 
-    async.series(series, done);
+    async.parallelLimit(series, options.concurrency, done);
   });
 
 };
