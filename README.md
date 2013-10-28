@@ -63,6 +63,12 @@ Default value: `false`
 
 Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
 
+#### options.concurrency
+Type: `Number`
+Default value: Number of CPUs
+
+Determines how many resize operations are executed in parallel.
+
 ### Usage Examples
 
 #### Default Options
