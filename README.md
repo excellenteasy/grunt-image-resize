@@ -63,6 +63,12 @@ Default value: `false`
 
 Determines whether images will be upscaled. If set to `false` (default), image will be copied instead of resized if it would be upscaled by resizing.
 
+#### options.quality
+Type: `Number`
+Default value: `1`
+
+Determines the output quality of the resized image. Ranges from `0` (really bad) to `1` (almost lossless). Only applies to jpg images.
+
 ### Usage Examples
 
 #### Default Options

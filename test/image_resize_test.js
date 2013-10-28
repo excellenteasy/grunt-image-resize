@@ -2,7 +2,8 @@
 
 var grunt = require('grunt'),
     gm    = require('gm').subClass({ imageMagick: true }),
-    async = require('async');
+    async = require('async'),
+    fs    = require('fs');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -59,6 +60,22 @@ exports.image_resize = {
       createTest(test, "upscale.png"),
       createTest(test, "upscale2.png"),
       createTest(test, "no_upscale.png"),
+    ], test.done);
+  },
+  quality: function(test) {
+    test.expect(3);
+
+    async.series([
+      createTest(test, 'quality.jpg'),
+      function(callback) {
+        fs.stat('tmp/quality.jpg', function(err, stats) {
+          fs.stat('test/expected/quality.jpg', function(err, expected) {
+            var epsilon = 1024;
+            test.ok(expected.size - epsilon < stats.size && expected.size + epsilon > stats.size );
+            callback();
+          });
+        });
+      }
     ], test.done);
   }
 };

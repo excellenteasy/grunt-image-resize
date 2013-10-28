@@ -83,6 +83,17 @@ module.exports = function(grunt) {
         files: [
           {'tmp/no_upscale.png': 'test/fixtures/no_upscale.png'}
         ]
+      },
+      quality: {
+        options: {
+          width: 600,
+          height: 0,
+          upscale: false,
+          quality: 0.2
+        },
+        files: [
+          {'tmp/quality.jpg': 'test/fixtures/quality.jpg'}
+        ]
       }
     },
 
