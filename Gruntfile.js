@@ -105,6 +105,17 @@ module.exports = function(grunt) {
         files: [
           {'tmp/quality.jpg': 'test/fixtures/quality.jpg'}
         ]
+      },
+      fail: {
+        options: {
+          width: 600,
+          height: 0,
+          upscale: false,
+          quality: 0.2
+        },
+        files: [
+          {'tmp/quality.jpg': 'test/image_resize_test.js'}
+        ]
       }
     },
 

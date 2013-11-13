@@ -69,36 +69,44 @@ module.exports = function(grunt) {
       series.push(function(callback) {
         // Fail when image would be upscaled unless explicitly allowed
         gm(filepath).size(function(err, size) {
-          if (!options.upscale &&
-            ((originalOptions.width && size.width < originalOptions.width) ||
-            (originalOptions.height && size.height < originalOptions.height))) {
-            grunt.log.writeln("Copying "+filepath+" instead of resizing, because image would be upscaled.\n"+
-              "To allow upscaling, set option 'upscale' to true.");
-            grunt.file.copy(filepath, imOptions.dstPath);
-            grunt.log.ok("Image "+filepath+" copied to "+imOptions.dstPath);
-            callback();
-          }
-          else {
-            if (options.crop) {
-              var resizer = gm(filepath)
-                .resize(imOptions.width, imOptions.height, "^")
-                .gravity("Center")
-                .crop(imOptions.width, imOptions.height);
-            } else {
-              var resizer = gm(filepath)
-                .resize(imOptions.width, imOptions.height);
+          if (err) {
+            grunt.fatal(
+              "Failed to query image dimensions of '"+filepath+"'." + "\n"+
+              "  "+err
+            );
+            callback(err);
+          } else {
+            if (!options.upscale &&
+              ((originalOptions.width && size.width < originalOptions.width) ||
+              (originalOptions.height && size.height < originalOptions.height))) {
+              grunt.log.writeln("Copying "+filepath+" instead of resizing, because image would be upscaled.\n"+
+                "To allow upscaling, set option 'upscale' to true.");
+              grunt.file.copy(filepath, imOptions.dstPath);
+              grunt.log.ok("Image "+filepath+" copied to "+imOptions.dstPath);
+              callback();
             }
-
-            resizer
-              .quality(Math.floor(imOptions.quality * 100))
-              .write(imOptions.dstPath, function(err) {
-              if (err) {
-                grunt.fail.warn(err.message);
+            else {
+              if (options.crop) {
+                var resizer = gm(filepath)
+                  .resize(imOptions.width, imOptions.height, "^")
+                  .gravity("Center")
+                  .crop(imOptions.width, imOptions.height);
               } else {
-                grunt.log.ok('Image '+filepath+' resized to '+f.dest);
+                var resizer = gm(filepath)
+                  .resize(imOptions.width, imOptions.height);
               }
-              return callback();
-            });
+
+              resizer
+                .quality(Math.floor(imOptions.quality * 100))
+                .write(imOptions.dstPath, function(err) {
+                if (err) {
+                  grunt.fail.warn(err.message);
+                } else {
+                  grunt.log.ok('Image '+filepath+' resized to '+f.dest);
+                }
+                return callback();
+              });
+            }
           }
         });
       });
