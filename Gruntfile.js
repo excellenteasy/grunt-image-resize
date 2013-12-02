@@ -95,6 +95,14 @@ module.exports = function(grunt) {
           {'tmp/crop.png': 'test/fixtures/crop.png'}
         ]
       },
+      big: {
+        options: {
+          width: 800
+        },
+        files: [
+          {'tmp/big.jpg': 'test/fixtures/big.jpg'}
+        ]
+      },
       quality: {
         options: {
           width: 600,

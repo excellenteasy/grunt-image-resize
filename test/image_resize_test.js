@@ -67,6 +67,11 @@ exports.image_resize = {
 
     createTest(test, "crop.png")(test.done);
   },
+  big: function(test) {
+    test.expect(2);
+
+    createTest(test, "big.jpg")(test.done);
+  },
   quality: function(test) {
     test.expect(3);
 
