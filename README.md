@@ -3,7 +3,7 @@
 > Resizing images made easy - thanks to imagemagick.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.1`
+This plugin requires Grunt `~0.4.1` and ImageMagick.
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -16,6 +16,22 @@ One the plugin has been installed, it may be enabled inside your Gruntfile with 
 ```js
 grunt.loadNpmTasks('grunt-image-resize');
 ```
+
+Make sure ImageMagick is installed on your system and properly set up in your `PATH`.
+
+Ubuntu
+```shell
+$ apt-get install imagemagick
+```
+
+Mac OS X (using (Homebrew)[http://brew.sh/])
+```shell
+$ brew install imagemagick
+```
+
+Windows & others: http://www.imagemagick.org/script/binary-releases.php
+
+Confirm that ImageMagick is properly set up by running `convert -help` in a terminal.
 
 ## The "image_resize" task
 

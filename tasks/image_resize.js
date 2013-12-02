@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         gm(filepath).size(function(err, size) {
           if (err) {
             grunt.fatal(
-              "Failed to query image dimensions of '"+filepath+"'." + "\n"+
+              "Failed to query image dimensions of '"+filepath+"'.\n"+
               "  "+err
             );
             callback(err);
@@ -86,13 +86,14 @@ module.exports = function(grunt) {
               callback();
             }
             else {
+              var resizer;
               if (options.crop) {
-                var resizer = gm(filepath)
+                resizer = gm(filepath)
                   .resize(imOptions.width, imOptions.height, "^")
                   .gravity("Center")
                   .crop(imOptions.width, imOptions.height);
               } else {
-                var resizer = gm(filepath)
+                resizer = gm(filepath)
                   .resize(imOptions.width, imOptions.height);
               }
 
