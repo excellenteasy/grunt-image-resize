@@ -5,6 +5,8 @@ var grunt = require('grunt'),
     async = require('async'),
     fs    = require('fs');
 
+gm.compare = gm.prototype.compare;
+
 /*
   ======== A Handy Little Nodeunit Reference ========
   https://github.com/caolan/nodeunit
@@ -31,7 +33,14 @@ var createTest = function(test, filename) {
       gm('test/expected/'+filename).size(function(err, expected) {
         test.equal(features.width, expected.width);
         test.equal(features.height, expected.height);
-        callback();
+        gm.compare('tmp/'+filename, 'test/expected/'+filename, 0.1, function (err, isEqual, difference) {
+          if (err) {
+            throw err;
+          }
+          test.ok(isEqual, 'tmp/'+filename+' is not equal to test/expected/'+filename+' (difference: '+difference+')');
+          callback();
+        })
+        
       });
     });
   };
@@ -43,7 +52,7 @@ exports.image_resize = {
     done();
   },
   resize: function(test) {
-    test.expect(8);
+    test.expect(12);
 
     async.series([
       createTest(test, 'gnu.jpg'),
@@ -54,7 +63,7 @@ exports.image_resize = {
 
   },
   upscale: function(test) {
-    test.expect(6);
+    test.expect(9);
 
     async.series([
       createTest(test, "upscale.png"),
@@ -63,12 +72,17 @@ exports.image_resize = {
     ], test.done);
   },
   crop: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     createTest(test, "crop.png")(test.done);
   },
-  quality: function(test) {
+  cropGravity: function(test) {
     test.expect(3);
+
+    createTest(test, "crop_gravity.png")(test.done);
+  },
+  quality: function(test) {
+    test.expect(4);
 
     async.series([
       createTest(test, 'quality.jpg'),

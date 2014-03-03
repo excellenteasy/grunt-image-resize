@@ -27,6 +27,7 @@ module.exports = function(grunt) {
       upscale: false,
       concurrency: os.cpus().length,
       crop: false,
+      gravity: 'Center',
       quality: 1
     });
     var series = [];
@@ -90,7 +91,7 @@ module.exports = function(grunt) {
               if (options.crop) {
                 resizer = gm(filepath)
                   .resize(imOptions.width, imOptions.height, "^")
-                  .gravity("Center")
+                  .gravity(options.gravity)
                   .crop(imOptions.width, imOptions.height);
               } else {
                 resizer = gm(filepath)

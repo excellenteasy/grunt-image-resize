@@ -91,6 +91,13 @@ Default value: `false`
 
 Determines whether images will be cropped after resizing to exactly match `options.width` and `options.height`.
 
+#### options.gravity
+Type: `String`
+Default value: `Center`
+Possible values: `NorthWest`, `North`, `NorthEast`, `West`, `Center`, `East`, `SouthWest`, `South`, `SouthEast`
+
+When cropping images this sets the image gravity. Doesn't have any effect, if `options.crop` is `false`.
+
 #### options.concurrency
 Type: `Number`
 Default value: Number of CPUs

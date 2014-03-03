@@ -95,6 +95,18 @@ module.exports = function(grunt) {
           {'tmp/crop.png': 'test/fixtures/crop.png'}
         ]
       },
+      cropGravity: {
+        options: {
+          width: 400,
+          height: 300,
+          upscale: false,
+          crop: true,
+          gravity: "NorthWest"
+        },
+        files: [
+          {'tmp/crop_gravity.png': 'test/fixtures/crop.png'}
+        ]
+      },
       quality: {
         options: {
           width: 600,
