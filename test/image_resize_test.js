@@ -39,7 +39,7 @@ var createTest = function(test, filename) {
           }
           test.ok(isEqual, 'tmp/'+filename+' is not equal to test/expected/'+filename+' (difference: '+difference+')');
           callback();
-        })
+        });
         
       });
     });
