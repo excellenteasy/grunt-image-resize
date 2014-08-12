@@ -65,13 +65,13 @@ grunt.initConfig({
 Type: `Number`
 Default value: `0` (only if height is defined)
 
-A number value that is passed as pixel value to imagemagick.
+A number value that is passed as pixel or percentage value to imagemagick.
 
 #### options.height
 Type: `Number`
 Default value: `0` (only if width is defined)
 
-A number value that is passed as pixel value to imagemagick.
+A number value that is passed as pixel or percentage value to imagemagick.
 
 #### options.overwrite
 Type: `Boolean`
