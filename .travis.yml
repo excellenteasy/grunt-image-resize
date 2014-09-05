@@ -7,3 +7,5 @@ before_script:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install graphicsmagick
+  - npm update -g npm
+  - npm --version
