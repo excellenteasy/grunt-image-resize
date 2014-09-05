@@ -117,6 +117,13 @@ module.exports = function(grunt) {
         files: [
           {'tmp/quality.jpg': 'test/fixtures/quality.jpg'}
         ]
+      },
+      all: {
+        options: {
+          width: 100,
+        },
+        src: 'test/fixtures/*.*',
+        dest: 'tmp/directory/'
       }
     },
 

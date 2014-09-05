@@ -168,5 +168,21 @@ grunt.initConfig({
 })
 ```
 
+#### Resize all the images in a directory
+
+```js
+grunt.initConfig({
+  image_resize: {
+    resize: {
+      options: {
+        width: 100,
+      },
+      src: 'src/*.JPG',
+      dest: 'dest/'
+    }
+  }
+})
+```
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
