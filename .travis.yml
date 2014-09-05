@@ -1,8 +1,23 @@
 language: node_js
 node_js:
-  - '0.10'
+- '0.10'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install graphicsmagick
+- sudo apt-get update -qq
+- sudo apt-get install graphicsmagick
+before_deploy:
+- grunt before-deploy
+after_deploy:
+- grunt after-deploy
+deploy:
+  provider: npm
+  email: info@excellenteasy.com
+  on:
+    all_branches: true
+    tags: true
+  api_key:
+    secure: eqvSIZDQNqXSA0q2yZ5Pj34fjdiOuQm9sm+bQXUqB8KmqDoG4OFCh21xMEkE3Iip/nUaOlEO481N7I6Tt7ytRRBfxh1h6vOnQl7DN5PslGbc6ZxKhwtfTjkJboq2GHUIj8fhEb9iFKzLxgocJMHpCSrccYwrwiQ06yN67NKc8NY=
+env:
+  global:
+    secure: hmmTF5Qde4LDTnt+ueLoSxKuAWbSreYLW49yL4+aHkOwS6RJnV13zUxJW4GpSKzaJ0kieucYsrCp+v0QjbdhWPJZOZr/Yig6Jjc7eg7G3eDlYTqO326tBo/ttbA1aq0AGR6ju2+AO5BMX6YkWl11c07uAMnkqWpOgs3fTNVvFXQ=

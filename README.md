@@ -1,5 +1,9 @@
 # grunt-image-resize
 
+[![Build Status](https://travis-ci.org/excellenteasy/grunt-image-resize.svg)](https://travis-ci.org/excellenteasy/grunt-image-resize)
+[![Dependency Status](https://david-dm.org/excellenteasy/grunt-image-resize.svg)](https://david-dm.org/excellenteasy/grunt-image-resize)
+[![devDependency Status](https://david-dm.org/excellenteasy/grunt-image-resize/dev-status.svg)](https://david-dm.org/excellenteasy/grunt-image-resize#info=devDependencies)
+
 > Resizing images made easy - thanks to ImageMagick.
 
 ## Getting Started
