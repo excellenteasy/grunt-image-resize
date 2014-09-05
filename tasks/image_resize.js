@@ -43,40 +43,31 @@ module.exports = function(grunt) {
     }
 
     // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      var dirname = path.dirname(f.dest),
-          filepath = f.src[0], imOptions = {
-        srcPath:  filepath,
-        dstPath:  f.dest,
-        width:    options.width,
-        height:   options.height,
-        quality:  options.quality
-      };
+    this.files.forEach(function(list) {
+      // Iterate over all files specified in the group
+      list.src.forEach(function(f) {
+        var dirname = (list.dest[list.dest.length-1] === '/') ? list.dest : path.dirname(list.dest),
+            filepath = f, imOptions = {
+          srcPath:  filepath,
+          dstPath:  (list.dest[list.dest.length-1] !== '/') ? list.dest : path.join(dirname, path.basename(filepath)) ,
+          width:    options.width,
+          height:   options.height,
+          quality:  options.quality
+        };
 
-      // Prevent failing if destination directory does not exist.
-      if (!grunt.file.isDir(dirname)) {
-        grunt.file.mkdir(dirname);
-      }
-      // Fail for more than one source file per file group.
-      if (f.src.length !== 1) {
-        return grunt.fail.fatal("Can not optimize more than one image per destination.\n"+
-          "You need to use a different 'files' format in your Gruntfile.");
-      }
-      if (options.overwrite === false && grunt.file.isFile(f.dest)) {
-        return grunt.log.writeln("Skipping "+filepath+" because destination already exists.\n"+
-          "Set options 'overwrite' to true to enable overwriting of files.");
-      }
+        // Prevent failing if destination directory does not exist.
+        if (!grunt.file.isDir(dirname)) {
+          grunt.file.mkdir(dirname);
+        }
 
-      series.push(function(callback) {
-        // Fail when image would be upscaled unless explicitly allowed
-        gm(filepath).size(function(err, size) {
-          if (err) {
-            grunt.fatal(
-              "Failed to query image dimensions of '"+filepath+"'.\n"+
-              "  "+err
-            );
-            callback(err);
-          } else {
+        if (options.overwrite === false && grunt.file.isFile(imOptions.dstPath)) {
+          return grunt.log.writeln("Skipping "+filepath+" because destination already exists.\n"+
+            "Set options 'overwrite' to true to enable overwriting of files.");
+        }
+
+        series.push(function(callback) {
+          // Fail when image would be upscaled unless explicitly allowed
+          gm(filepath).size(function(err, size) {
             if (!options.upscale &&
               ((originalOptions.width && size.width < originalOptions.width) ||
               (originalOptions.height && size.height < originalOptions.height))) {
@@ -104,12 +95,12 @@ module.exports = function(grunt) {
                 if (err) {
                   grunt.fail.warn(err.message);
                 } else {
-                  grunt.log.ok('Image '+filepath+' resized to '+f.dest);
+                  grunt.log.ok('Image '+filepath+' resized to '+ list.dest);
                 }
                 return callback();
               });
             }
-          }
+          });
         });
       });
     });

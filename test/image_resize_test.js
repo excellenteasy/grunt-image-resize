@@ -96,5 +96,20 @@ exports.image_resize = {
         });
       }
     ], test.done);
+  },
+  all: function(test) {
+    test.expect(27);
+
+    async.series([
+      createTest(test, "directory/crop.png"),
+      createTest(test, "directory/gnu.jpg"),
+      createTest(test, "directory/no_upscale.png"),
+      createTest(test, "directory/quality.jpg"),
+      createTest(test, "directory/Rhododendron.jpg"),
+      createTest(test, "directory/TeslaTurbine.png"),
+      createTest(test, "directory/upscale2.png"),
+      createTest(test, "directory/upscale.png"),
+      createTest(test, "directory/wikipedia.png")
+    ], test.done);
   }
 };
