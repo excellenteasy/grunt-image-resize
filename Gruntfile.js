@@ -132,6 +132,10 @@ module.exports = function(grunt) {
       tests: ['test/*_test.js']
     },
 
+    release: {
+      email: 'bot@excellenteasy.com',
+      name: 'excellenteasybot'
+    }
   });
 
   // Actually load this plugin's task(s).
