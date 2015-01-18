@@ -1,15 +1,13 @@
 language: node_js
 node_js:
 - '0.10'
-before_script:
-- npm install -g grunt-cli
 before_install:
 - sudo apt-get update -qq
 - sudo apt-get install graphicsmagick
 before_deploy:
-- grunt before-deploy
+- npm run before-deploy
 after_deploy:
-- grunt after-deploy
+- npm run after-deploy
 deploy:
   provider: npm
   email: info@excellenteasy.com
