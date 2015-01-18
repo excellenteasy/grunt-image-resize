@@ -28,7 +28,8 @@ module.exports = function(grunt) {
       concurrency: os.cpus().length,
       crop: false,
       gravity: 'Center',
-      quality: 1
+      quality: 1,
+      autoOrient: false
     });
     var series = [];
 
@@ -52,7 +53,8 @@ module.exports = function(grunt) {
           dstPath:  (list.dest[list.dest.length-1] !== '/') ? list.dest : path.join(dirname, path.basename(filepath)) ,
           width:    options.width,
           height:   options.height,
-          quality:  options.quality
+          quality:  options.quality,
+          autoOrient: options.autoOrient
         };
 
         // Prevent failing if destination directory does not exist.
@@ -87,6 +89,10 @@ module.exports = function(grunt) {
               } else {
                 resizer = gm(filepath)
                   .resize(imOptions.width, imOptions.height);
+              }
+
+              if (options.autoOrient) {
+                resizer.autoOrient();
               }
 
               resizer

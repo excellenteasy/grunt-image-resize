@@ -114,6 +114,12 @@ Default value: `1`
 
 Determines the output quality of the resized image. Ranges from `0` (really bad) to `1` (almost lossless). Only applies to jpg images.
 
+#### options.autoOrient
+Type: `Boolean`
+Default value: `false`
+
+Determines if resized image will be rotated according to EXIF information. Only applies to jpg images.
+
 ### Usage Examples
 
 #### Default Options

@@ -118,6 +118,16 @@ module.exports = function(grunt) {
           {'tmp/quality.jpg': 'test/fixtures/quality.jpg'}
         ]
       },
+      autoOrient: {
+        options: {
+          autoOrient: true,
+          width: 100,
+          height: 100
+        },
+        files: [
+          {'tmp/rotate.jpg': 'test/fixtures/rotate.jpg'}
+        ]
+      },
       all: {
         options: {
           width: 100,

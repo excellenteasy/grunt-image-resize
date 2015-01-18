@@ -97,8 +97,13 @@ exports.image_resize = {
       }
     ], test.done);
   },
+  autoOrient: function(test) {
+    test.expect(3);
+
+    createTest(test, "rotate.jpg")(test.done);
+  },
   all: function(test) {
-    test.expect(27);
+    test.expect(30);
 
     async.series([
       createTest(test, "directory/crop.png"),
@@ -109,6 +114,7 @@ exports.image_resize = {
       createTest(test, "directory/TeslaTurbine.png"),
       createTest(test, "directory/upscale2.png"),
       createTest(test, "directory/upscale.png"),
+      createTest(test, "directory/rotate.jpg"),
       createTest(test, "directory/wikipedia.png")
     ], test.done);
   }
