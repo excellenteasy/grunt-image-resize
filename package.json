@@ -1,7 +1,7 @@
 {
   "name": "grunt-image-resize",
   "description": "Resizing images made easy.",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/excellenteasy/grunt-image-resize",
   "author": {
     "name": "David Pfahler",
