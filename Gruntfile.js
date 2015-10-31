@@ -57,7 +57,6 @@ module.exports = function(grunt) {
       upscale: {
         options: {
           width: 600,
-          height: 0,
           upscale: true
         },
         files: [
@@ -77,7 +76,6 @@ module.exports = function(grunt) {
       no_upscale: {
         options: {
           width: 600,
-          height: 0,
           upscale: false
         },
         files: [
@@ -110,7 +108,6 @@ module.exports = function(grunt) {
       quality: {
         options: {
           width: 600,
-          height: 0,
           upscale: false,
           quality: 0.2
         },

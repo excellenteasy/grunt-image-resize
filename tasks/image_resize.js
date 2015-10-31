@@ -36,12 +36,6 @@ module.exports = function(grunt) {
     if (options.height == null && options.width == null) {
       return grunt.fail.warn("Neither height nor width defined.");
     }
-    if (options.height == null && options.width) {
-      options.height = 0;
-    }
-    if (options.width == null && options.height) {
-      options.width = 0;
-    }
 
     // Iterate over all specified file groups.
     this.files.forEach(function(list) {
