@@ -67,15 +67,13 @@ grunt.initConfig({
 
 #### options.width
 Type: `Number`
-Default value: `0` (only if height is defined)
 
-A number value that is passed as pixel or percentage value to imagemagick.
+A number value that is passed as pixel or percentage value to imagemagick. If not defined, the resized image will keep the aspect ratio.
 
 #### options.height
 Type: `Number`
-Default value: `0` (only if width is defined)
 
-A number value that is passed as pixel or percentage value to imagemagick.
+A number value that is passed as pixel or percentage value to imagemagick. If not defined, the resized image will keep the aspect ratio.
 
 #### options.overwrite
 Type: `Boolean`
